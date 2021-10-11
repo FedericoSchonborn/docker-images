@@ -10,6 +10,7 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         target: [aarch64, i686, x86_64]
         toolchain: [GNU, Clang]
