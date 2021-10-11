@@ -1,4 +1,4 @@
-name: Serenity Build
+name: Serenity
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  build:
-    name: Build
+  build-and-push:
+    name: Build and Push
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -24,9 +24,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and Push
         uses: docker/build-push-action@v2
         with:
-          context: serenity-build
+          context: serenity
+          push: true
           tags: |
-            ghcr.io/fdschonborn/serenity-build:${{matrix.target}}-${{matrix.toolchain}}
+            ghcr.io/fdschonborn/serenity:${{matrix.target}}-${{matrix.toolchain}}
