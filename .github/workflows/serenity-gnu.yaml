@@ -1,4 +1,4 @@
-name: Serenity
+name: Serenity (GNU)
 
 on:
   push:
@@ -10,16 +10,12 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-20.04
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         target:
           - aarch64
           - i686
           - x86_64
-        toolchain:
-          - GNU
-        include:
-          - toolchain: Clang
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,8 +32,8 @@ jobs:
         with:
           context: serenity
           build-args: |
+            toolchain=GNU
             target=${{ matrix.target }}
-            toolchain=${{ matrix.toolchain }}
           push: true
           tags: |
-            ghcr.io/fdschonborn/serenity:${{ matrix.target }}-${{ matrix.toolchain }}
+            ghcr.io/fdschonborn/serenity:GNU-${{ matrix.target }}
