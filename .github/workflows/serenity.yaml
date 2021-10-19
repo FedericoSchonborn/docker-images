@@ -12,8 +12,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [aarch64, i686, x86_64]
-        toolchain: [GNU, Clang]
+        target:
+          - aarch64
+          - i686
+          - x86_64
+        toolchain:
+          - GNU
+        include:
+          - toolchain: Clang
     steps:
       - name: Checkout
         uses: actions/checkout@v2
